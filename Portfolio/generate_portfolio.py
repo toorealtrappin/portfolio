@@ -1,0 +1,319 @@
+import json
+
+# 1. Profile information structured for search engine indexing (Schema.org)
+profile_data = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Caleb Paa Kwasi Obeng",
+    "alternateName": "Toorealtrappin",
+    "description": "IT Developer specializing in Python Programming, Web Development, and Cybersecurity.",
+    "url": "https://toorealtrappin.github.io",
+    "image": "profile.jpg",
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Accra",
+        "addressCountry": "Ghana"
+    },
+    "knowsAbout": [
+        "Python Programming",
+        "Web Development",
+        "Cybersecurity",
+        "Information Technology"
+    ],
+    "sameAs": [
+        "https://x.com/toorealtrappin",
+        "https://instagram.com/toorealtrappin",
+        "https://tiktok.com/@toorealtrappin",
+        "https://linkedin.com/in/toorealtrappin",
+        "https://youtube.com/@toorealtrappin",
+        "https://github.com/toorealtrappin"
+    ]
+}
+
+json_ld_string = json.dumps(profile_data, indent=4)
+
+# 2. HTML Template (Standard multi-line string prevents f-string brace syntax errors)
+html_template = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caleb Paa Kwasi Obeng | Portfolio</title>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+__JSON_LD_DATA__
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-color: #38bdf8;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --code-bg: #030712;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin: 10px 0 5px 0;
+            font-size: 2.2rem;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .location {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: #1f2937;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: #a7f3d0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88rem;
+            margin-top: 12px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #1f2937;
+            color: var(--accent-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <img src="profile.jpg" alt="Caleb Paa Kwasi Obeng" class="profile-img" onerror="this.src='https://via.placeholder.com/130?text=Caleb'">
+            <h1>Caleb Paa Kwasi Obeng</h1>
+            <div class="subtitle">Brand: Toorealtrappin</div>
+            <div class="location"><i class="fa-solid fa-location-dot"></i> Accra, Ghana</div>
+            
+            <div class="social-buttons">
+                <a href="https://x.com/toorealtrappin" target="_blank" class="social-btn"><i class="fa-brands fa-x-twitter"></i> X / Twitter</a>
+                <a href="https://instagram.com/toorealtrappin" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                <a href="https://tiktok.com/@toorealtrappin" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                <a href="https://linkedin.com/in/toorealtrappin" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                <a href="https://youtube.com/@toorealtrappin" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                <a href="https://github.com/toorealtrappin" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+            </div>
+        </header>
+
+        <section>
+            <div class="section-title"><i class="fa-solid fa-code" style="color: var(--accent-color);"></i> Specializations</div>
+            <div class="grid">
+                <div class="card">
+                    <h3>Python Programming</h3>
+                    <p>Building automation scripts, JSON metadata generators, and custom backend tools.</p>
+                </div>
+                <div class="card">
+                    <h3>Web Development</h3>
+                    <p>Creating clean responsive interfaces, structured JSON-LD SEO metadata, and web layouts.</p>
+                </div>
+                <div class="card">
+                    <h3>Cybersecurity</h3>
+                    <p>Exploring networking concepts, system administration, and web security protocol foundations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title"><i class="fa-brands fa-python" style="color: var(--accent-color);"></i> Python Projects</div>
+            
+            <div class="project-card">
+                <h3><i class="fa-solid fa-file-code"></i> Portfolio & Schema Metadata Generator</h3>
+                <p>A Python script that generates a complete HTML portfolio integrated with Schema.org JSON-LD structured data for search engine optimization.</p>
+<pre><code>import json
+
+profile = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Caleb Paa Kwasi Obeng",
+    "alternateName": "Toorealtrappin"
+}
+
+with open("index.html", "w") as f:
+    f.write(json.dumps(profile))</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title"><i class="fa-solid fa-layer-group" style="color: var(--accent-color);"></i> Technical Environment</div>
+            <div class="card">
+                <div class="tech-tags">
+                    <span class="tag">Python 3</span>
+                    <span class="tag">HTML5 / CSS3</span>
+                    <span class="tag">Git & GitHub</span>
+                    <span class="tag">VS Code</span>
+                    <span class="tag">Windows Subsystem</span>
+                    <span class="tag">JSON-LD Metadata</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Caleb Paa Kwasi Obeng (Toorealtrappin). All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+"""
+
+# Insert JSON data replacing the template placeholder
+final_html = html_template.replace("__JSON_LD_DATA__", json_ld_string)
+
+with open("index.html", "w", encoding="utf-8") as file:
+    file.write(final_html)
+
+print("Portfolio generated successfully!")
